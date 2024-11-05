@@ -75,11 +75,7 @@ WORKDIR /var/www/html
 COPY . /var/www/html
 RUN composer install --no-interaction --prefer-dist --no-dev && \
     rm -fr ~/.composer && \
-    mkdir /var/www/private_files && \
-    chown -R www-data:www-data /var/www/private_files && \
-    mkdir /var/www/html/web/sites/default/files && \
-    chown -R www-data:www-data /var/www/html/web/sites/default/files
-COPY azure-web-app/info.php /var/www/html/web/
+    ln -snf  /var/www/shared/files /var/www/html/web/sites/default/files
 
 # Set startup script.
 COPY azure-web-app/entrypoint.sh /entrypoint.sh
