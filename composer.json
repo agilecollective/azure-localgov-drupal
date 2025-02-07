@@ -64,11 +64,6 @@
                     "path": "assets/composer/settings.php",
                     "overwrite": false
                 },
-                "[web-root]/sites/default/settings.azure.php": {
-                    "mode": "replace",
-                    "path": "assets/composer/settings.azure.php",
-                    "overwrite": false
-                },
                 "[web-root]/sites/default/settings.lando.php": {
                     "mode": "replace",
                     "path": "assets/composer/settings.lando.php",

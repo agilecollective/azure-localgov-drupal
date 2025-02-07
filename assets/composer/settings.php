@@ -764,6 +764,3 @@ if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
 elseif (getenv('LANDO_SERVICE_NAME') == 'appserver' && file_exists($app_root . '/' . $site_path . '/settings.lando.php')) {
   include $app_root . '/' . $site_path . '/settings.lando.php';
 }
-elseif (getenv('AZURE_ENVIRONMENT') && file_exists($app_root . '/' . $site_path . '/settings.azure.php')) {
-  include $app_root . '/' . $site_path . '/settings.azure.php';
-}
