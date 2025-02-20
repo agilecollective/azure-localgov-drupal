@@ -11,18 +11,33 @@ variable "app_service_plan_sku" {
 
 # Container registry service tier.
 # See https://learn.microsoft.com/en-us/azure/container-registry/container-registry-skus
-variable "contatainer_registry_sku" {
+variable "container_registry_sku" {
   type        = string
   default     = "Standard"
   description = "Container registry service tier SKU."
 }
 
+# Container image name.
+variable "container_registry_repo_name" {
+  type        = string
+  default     = "lgd/drupal"
+  description = "Name of repository in container registry to deploy web app to."
+}
+
+
 # MySQL server tier.
 # See https://learn.microsoft.com/en-us/azure/mysql/flexible-server/concepts-service-tiers-storage
 variable "mysql_flexible_server_sku" {
   type        = string
-  default     = "Standard_D2ads_v5"
+  default     = "B_Standard_B1ms"
   description = "MySQL flexible server tier SKU."
+}
+
+# MySQL admin user.
+variable "mysql_admin_user" {
+  type        = string
+  default     = "lgd_admin"
+  description = "MySQL admin user."
 }
 
 # ID used for resource group.

@@ -1,18 +1,24 @@
 ##
 # LGD in Azure - Databases.
 
+resource "random_password" "mysql_password" {
+  length  = 16
+  special = false
+}
+
 resource "azurerm_mysql_flexible_server" "mysql" {
   name                   = "db-${var.resource_group_name}-001"
   resource_group_name    = azurerm_resource_group.rg.name
   location               = azurerm_resource_group.rg.location
   sku_name               = var.mysql_flexible_server_sku
-  delegated_subnet_id    = azurerm_subnet.private.id
-  private_dns_zone_id    = azurerm_private_dns_zone.example.id
-
+  zone                   = "1"
+  delegated_subnet_id    = azurerm_subnet.subnet_db.id
+  administrator_login    = var.mysql_admin_user
+  administrator_password = random_password.mysql_password.result
 }
 
 resource "azurerm_mysql_flexible_database" "db_prod" {
-  name                = "prod"
+  name                = "db_prod"
   resource_group_name = azurerm_resource_group.rg.name
   server_name         = azurerm_mysql_flexible_server.mysql.name
   charset             = "utf8"
@@ -20,7 +26,7 @@ resource "azurerm_mysql_flexible_database" "db_prod" {
 }
 
 resource "azurerm_mysql_flexible_database" "db_dev" {
-  name                = "dev"
+  name                = "db_dev"
   resource_group_name = azurerm_resource_group.rg.name
   server_name         = azurerm_mysql_flexible_server.mysql.name
   charset             = "utf8"
@@ -28,7 +34,7 @@ resource "azurerm_mysql_flexible_database" "db_dev" {
 }
 
 resource "azurerm_mysql_flexible_database" "db_uat" {
-  name                = "uat"
+  name                = "db_uat"
   resource_group_name = azurerm_resource_group.rg.name
   server_name         = azurerm_mysql_flexible_server.mysql.name
   charset             = "utf8"
