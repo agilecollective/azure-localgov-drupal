@@ -60,16 +60,16 @@ resource "azurerm_linux_web_app" "app" {
   }
 }
 
-resource "azurerm_app_service_connection" "db_prod" {
-  name               = "sc_db_prod"
-  app_service_id     = azurerm_linux_web_app.app.id
-  target_resource_id = azurerm_mysql_flexible_database.db_prod.id
-  authentication {
-    type   = "secret"
-    name   = var.mysql_admin_user
-    secret = azurerm_mysql_flexible_server.mysql.administrator_password
-  }
-}
+# resource "azurerm_app_service_connection" "db_prod" {
+#   name               = "sc_db_prod"
+#   app_service_id     = azurerm_linux_web_app.app.id
+#   target_resource_id = azurerm_mysql_flexible_database.db_prod.id
+#   authentication {
+#     type   = "secret"
+#     name   = var.mysql_admin_user
+#     secret = azurerm_mysql_flexible_server.mysql.administrator_password
+#   }
+# }
 
 # Pre-prod slot.
 resource "azurerm_linux_web_app_slot" "preprod" {
@@ -77,11 +77,12 @@ resource "azurerm_linux_web_app_slot" "preprod" {
   app_service_id = azurerm_linux_web_app.app.id
   site_config {
     application_stack {
-      docker_image_name        = "${azurerm_container_registry.registry.login_server}/${var.container_registry_repo_name}:main"
+      docker_image_name        = "${var.container_registry_repo_name}:main"
       docker_registry_url      = "https://${azurerm_container_registry.registry.login_server}"
       docker_registry_username = azurerm_container_registry.registry.admin_username
       docker_registry_password = azurerm_container_registry.registry.admin_password
     }
+    container_registry_use_managed_identity = true
   }
   app_settings = {
     "AZURE_MYSQL_DBNAME"   = azurerm_mysql_flexible_database.db_prod.name
@@ -91,6 +92,7 @@ resource "azurerm_linux_web_app_slot" "preprod" {
     "AZURE_MYSQL_PORT"     = "3306"
     "AZURE_MYSQL_USERNAME" = azurerm_mysql_flexible_server.mysql.administrator_login
     "AZURE_MYSQL_SSL"      = "true"
+    "DOCKER_ENABLE_CI"     = "true"
   }
   connection_string {
     name  = "Database"
@@ -113,11 +115,12 @@ resource "azurerm_linux_web_app_slot" "dev" {
   app_service_id = azurerm_linux_web_app.app.id
   site_config {
     application_stack {
-      docker_image_name        = "${azurerm_container_registry.registry.login_server}/${var.container_registry_repo_name}:dev"
+      docker_image_name        = "${var.container_registry_repo_name}:dev"
       docker_registry_url      = "https://${azurerm_container_registry.registry.login_server}"
       docker_registry_username = azurerm_container_registry.registry.admin_username
       docker_registry_password = azurerm_container_registry.registry.admin_password
     }
+    container_registry_use_managed_identity = true
   }
   app_settings = {
     "AZURE_MYSQL_DBNAME"   = azurerm_mysql_flexible_database.db_dev.name
@@ -127,6 +130,7 @@ resource "azurerm_linux_web_app_slot" "dev" {
     "AZURE_MYSQL_PORT"     = "3306"
     "AZURE_MYSQL_USERNAME" = azurerm_mysql_flexible_server.mysql.administrator_login
     "AZURE_MYSQL_SSL"      = "true"
+    "DOCKER_ENABLE_CI"     = "true"
   }
   storage_account {
     name         = "dev-files"
@@ -144,11 +148,12 @@ resource "azurerm_linux_web_app_slot" "uat" {
   app_service_id = azurerm_linux_web_app.app.id
   site_config {
     application_stack {
-      docker_image_name        = "${azurerm_container_registry.registry.login_server}/${var.container_registry_repo_name}:uat"
+      docker_image_name        = "${var.container_registry_repo_name}:uat"
       docker_registry_url      = "https://${azurerm_container_registry.registry.login_server}"
       docker_registry_username = azurerm_container_registry.registry.admin_username
       docker_registry_password = azurerm_container_registry.registry.admin_password
     }
+    container_registry_use_managed_identity = true
   }
   app_settings = {
     "AZURE_MYSQL_DBNAME"   = azurerm_mysql_flexible_database.db_uat.name
@@ -158,6 +163,7 @@ resource "azurerm_linux_web_app_slot" "uat" {
     "AZURE_MYSQL_PORT"     = "3306"
     "AZURE_MYSQL_USERNAME" = azurerm_mysql_flexible_server.mysql.administrator_login
     "AZURE_MYSQL_SSL"      = "true"
+    "DOCKER_ENABLE_CI"     = "true"
   }
   storage_account {
     name         = "uat-files"
