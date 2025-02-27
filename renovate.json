@@ -21,27 +21,15 @@
   "rangeStrategy": "update-lockfile",
   "packageRules": [
     {
-      "groupName": "Drupal contrib",
-      "groupSlug": "contrib",
+      "groupName": "Drupal",
       "rangeStrategy": "update-lockfile",
       "matchManagers": ["composer"],
       "matchDatasources": ["packagist"],
       "matchPackageNames": [
         "drupal/**",
         "drush/**",
-        "localgovdrupal/**",
-        "!drupal/core-**"
+        "localgovdrupal/**"
       ],
-      "automerge": true,
-      "automergeType": "branch"
-    },
-    {
-      "groupName": "Drupal core",
-      "groupSlug": "drupal-core",
-      "rangeStrategy": "update-lockfile",
-      "matchManagers": ["composer"],
-      "matchDatasources": ["packagist"],
-      "matchPackageNames": ["drupal/core-**"],
       "automerge": true,
       "automergeType": "branch"
     },
