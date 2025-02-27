@@ -25,11 +25,6 @@
       "rangeStrategy": "update-lockfile",
       "matchManagers": ["composer"],
       "matchDatasources": ["packagist"],
-      "matchPackageNames": [
-        "drupal/**",
-        "drush/**",
-        "localgovdrupal/**"
-      ],
       "automerge": true,
       "automergeType": "branch"
     },
