@@ -1,0 +1,54 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:best-practices",
+    ":preserveSemverRanges",
+    ":rebaseStalePrs",
+    ":enableVulnerabilityAlertsWithLabel('security')"
+  ],
+  "branchPrefix": "renovate/",
+  "enabledManagers": [
+    "composer",
+    "github-actions"
+  ],
+  "ignorePaths": ["web/**"],
+  "major": {
+    "dependencyDashboardApproval": true
+  },
+  "constraints": {
+    "php": "8.3"
+  },
+  "rangeStrategy": "update-lockfile",
+  "packageRules": [
+    {
+      "groupName": "Drupal contrib",
+      "groupSlug": "contrib",
+      "rangeStrategy": "update-lockfile",
+      "matchManagers": ["composer"],
+      "matchDatasources": ["packagist"],
+      "matchPackageNames": [
+        "drupal/**",
+        "drush/**",
+        "localgovdrupal/**",
+        "!drupal/core-**"
+      ],
+      "automerge": true,
+      "automergeType": "branch"
+    },
+    {
+      "groupName": "Drupal core",
+      "groupSlug": "drupal-core",
+      "rangeStrategy": "update-lockfile",
+      "matchManagers": ["composer"],
+      "matchDatasources": ["packagist"],
+      "matchPackageNames": ["drupal/core-**"],
+      "automerge": true,
+      "automergeType": "branch"
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "automerge": true,
+      "automergeType": "branch"
+    }
+  ]
+}
