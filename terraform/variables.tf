@@ -1,6 +1,27 @@
 ##
 # LGD in Azure - variables.
 
+# Name used when creating resource group.
+variable "resource_group_name" {
+  type        = string
+  default     = "lgd"
+  description = "Name used when creating resources."
+}
+
+# ID used for resource group.
+variable "resource_group_id" {
+  type        = string
+  default     = "001"
+  description = "ID used when creating resource group."
+}
+
+# Location for all resources.
+variable "resource_group_location" {
+  type        = string
+  default     = "uksouth"
+  description = "Location of the resource group."
+}
+
 # App service plan SKU.
 # See https://learn.microsoft.com/en-us/azure/app-service/overview-hosting-plans
 variable "app_service_plan_sku" {
@@ -24,6 +45,13 @@ variable "container_registry_repo_name" {
   description = "Name of repository in container registry to deploy web app to."
 }
 
+# Front Door account tier.
+# See https://learn.microsoft.com/en-us/azure/frontdoor/understanding-pricing
+variable "front_door_sku" {
+  type        = string
+  default     = "Standard_AzureFrontDoor"
+  description = "Front Door tier SKU."
+}
 
 # MySQL server tier.
 # See https://learn.microsoft.com/en-us/azure/mysql/flexible-server/concepts-service-tiers-storage
@@ -38,27 +66,6 @@ variable "mysql_admin_user" {
   type        = string
   default     = "lgd_admin"
   description = "MySQL admin user."
-}
-
-# ID used for resource group.
-variable "resource_group_id" {
-  type        = string
-  default     = "001"
-  description = "ID used when creating resource group."
-}
-
-# Location for all resources.
-variable "resource_group_location" {
-  type        = string
-  default     = "uksouth"
-  description = "Location of the resource group."
-}
-
-# Name used when creating resource group.
-variable "resource_group_name" {
-  type        = string
-  default     = "lgd"
-  description = "Name used when creating resources."
 }
 
 # Storage account tier.

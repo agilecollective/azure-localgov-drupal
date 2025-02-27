@@ -75,7 +75,6 @@ WORKDIR /var/www/html
 COPY . /var/www/html
 RUN composer install --no-interaction --prefer-dist --no-dev && \
     rm -fr ~/.composer && \
-    ln -snf  /var/www/share/public /var/www/html/web/sites/default/files && \
     echo "\
 \n\
 /**\n\
