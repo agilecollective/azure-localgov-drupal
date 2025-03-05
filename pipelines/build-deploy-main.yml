@@ -23,6 +23,7 @@ variables:
 
   # Environment to build and deploy.
   deployEnvironment: $(Build.SourceBranchName)
+  deploySlot: 'app-slot-preprod'
 
 stages:
 
@@ -61,7 +62,7 @@ stages:
               ResourceGroupName: $(resourceGroupName)
               appType: webAppContainer
               WebAppName: $(webAppName)
-              SlotName: $(deployEnvironment)
+              SlotName: $(deploySlot)
               deployToSlotOrASE: true
               DockerNamespace: $(containerRegistry)
               DockerRepository: $(imageRepository)
