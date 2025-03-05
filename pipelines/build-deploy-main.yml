@@ -1,0 +1,69 @@
+##
+# Build and deploy to preprod slot.
+#
+# Builds main branch to a main tag and deploys to the main slot.
+
+trigger:
+  - main
+
+resources:
+  - repo: self
+
+variables:
+  # Build vars.
+  dockerRegistryServiceConnection: '5d3bc1f7-e5cb-4616-81cc-73806dae81b6'
+  containerRegistry: 'crlgd.azurecr.io'
+  imageRepository: 'lgd/drupal'
+  dockerfilePath: '$(Build.SourcesDirectory)/azure-web-app/Dockerfile'
+  tag: $(Build.SourceBranchName)
+  # Deploy vars.
+  resourceManagerServiceConnection: 'f37bf063-ea52-4f2e-9d41-8e2b2c4e3391'
+  resourceGroupName: 'rg-lgd-uksouth-001'
+  webAppName: 'app-lgd-001'
+
+  # Environment to build and deploy.
+  deployEnvironment: $(Build.SourceBranchName)
+
+stages:
+
+  # Build Docker image and pushes to Azure container registry.
+  - stage: Build
+    displayName: Build and push image
+    jobs:
+      - job: Build
+        displayName: Build
+        pool:
+          vmImage: 'ubuntu-latest'
+        steps:
+          - task: Docker@2
+            displayName: Build and push an image to container registry
+            inputs:
+              command: buildAndPush
+              repository: $(imageRepository)
+              dockerfile: $(dockerfilePath)
+              buildContext: '.'
+              containerRegistry: $(dockerRegistryServiceConnection)
+              tags: $(deployEnvironment)
+
+  # Deploy Docker image to web app.
+  - stage: Deploy
+    displayName: Deploy Drupal image.
+    jobs:
+      - job: Deploy
+        displayName: Deploy
+        pool:
+          vmImage: 'ubuntu-latest'
+        steps:
+          - task: AzureRmWebAppDeployment@5
+            displayName: Deploy image
+            inputs:
+              azureSubscription: $(resourceManagerServiceConnection)
+              ResourceGroupName: $(resourceGroupName)
+              appType: webAppContainer
+              WebAppName: $(webAppName)
+              SlotName: $(deployEnvironment)
+              deployToSlotOrASE: true
+              DockerNamespace: $(containerRegistry)
+              DockerRepository: $(imageRepository)
+              DockerImageTag: $(deployEnvironment)
+              StartupCommand: 'echo "Run" > /startup'
