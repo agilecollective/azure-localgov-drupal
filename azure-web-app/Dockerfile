@@ -104,4 +104,4 @@ RUN chmod a+x /entrypoint.sh
 
 EXPOSE 80 2222
 
-ENTRYPOINT [ "/entrypoint.sh" ]
+# ENTRYPOINT [ "/entrypoint.sh" ]
