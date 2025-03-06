@@ -619,7 +619,7 @@ if ($settings['hash_salt']) {
  */
 # $config['system.site']['name'] = 'My Drupal site';
 # $config['user.settings']['anonymous'] = 'Visitor';
-
+$config['system.site']['name'] = 'Override the name';
 /**
  * Fast 404 pages:
  *
