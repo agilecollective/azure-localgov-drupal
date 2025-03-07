@@ -10,12 +10,13 @@ resources:
   - repo: self
 
 variables:
+
   # Build vars.
   dockerRegistryServiceConnection: '5d3bc1f7-e5cb-4616-81cc-73806dae81b6'
   containerRegistry: 'crlgd.azurecr.io'
   imageRepository: 'lgd/drupal'
   dockerfilePath: '$(Build.SourcesDirectory)/azure-web-app/Dockerfile'
-  tag: $(Build.SourceBranchName)
+  
   # Deploy vars.
   resourceManagerServiceConnection: 'f37bf063-ea52-4f2e-9d41-8e2b2c4e3391'
   resourceGroupName: 'rg-lgd-uksouth-001'
@@ -24,6 +25,7 @@ variables:
   # Environment to build and deploy.
   deployEnvironment: $(Build.SourceBranchName)
   deploySlot: 'app-slot-preprod'
+  environment: 'production'
 
 stages:
 
@@ -50,11 +52,11 @@ stages:
             displayName: Build image
             inputs:
               command: build
+              containerRegistry: $(dockerRegistryServiceConnection)
               repository: $(imageRepository)
               dockerfile: $(dockerfilePath)
               buildContext: '.'
-              containerRegistry: $(dockerRegistryServiceConnection)
-              arguments: '--cache-from=$(containerRegistry)/$(imageRepository):$(deployEnvironment)'
+              arguments: '--build-arg BUILD_ID=$(Build.SourceVersion) --build-arg ENVIRONMENT=$(drupalEnvironment) --build-arg BUILDKIT_INLINE_CACHE=1 --cache-from=$(containerRegistry)/cache/$(imageRepository):$(deployEnvironment)'
               tags: $(deployEnvironment)
 
           - task: Docker@2
@@ -86,4 +88,3 @@ stages:
               DockerNamespace: $(containerRegistry)
               DockerRepository: $(imageRepository)
               DockerImageTag: $(deployEnvironment)
-              StartupCommand: '/bin/bash /var/www/html/azure-web-app/startup.sh'

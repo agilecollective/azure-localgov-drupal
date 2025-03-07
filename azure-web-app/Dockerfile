@@ -3,10 +3,12 @@
 FROM php:8.3-apache
 
 # Build arguments.
-ARG AZURE_ENVIRONMENT=production
+ARG ENVIRONMENT=production
+ARG BUILD_ID
 
 # Environment variables.
-ENV AZURE_ENVIRONMENT=$AZURE_ENVIRONMENT
+ENV AZURE_ENVIRONMENT=$ENVIRONMENT
+ENV AZURE_BUILD_ID=$BUILD_ID
 
 # Apache configuration.
 ENV APACHE_DOCUMENT_ROOT=var/www/html/web
@@ -104,4 +106,4 @@ RUN chmod a+x /entrypoint.sh
 
 EXPOSE 80 2222
 
-# ENTRYPOINT [ "/entrypoint.sh" ]
+ENTRYPOINT [ "/entrypoint.sh" ]
