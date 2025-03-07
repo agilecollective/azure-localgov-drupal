@@ -21,7 +21,7 @@ cd /var/www/share/html
 DRUPAL_BULID_ID=$(bin/drush state:get azure_build_id)
 if [[ "$AZURE_BUILD_ID" != "$DRUPAL_BUILD_ID" ]]; then
   bin/drush deploy --yes
-  bin/drush state:set azure_build_id $AZURE_BUILD_ID
+  bin/drush state:set azure_build_id $AZURE_BUILD_ID --yes
 fi
 
 # Start SSH and Apache.
