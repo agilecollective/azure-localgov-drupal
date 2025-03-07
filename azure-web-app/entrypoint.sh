@@ -17,17 +17,16 @@ mkdir -p /var/www/share/public
 ln -snf  /var/www/share/public /var/www/html/web/sites/default/files
 
 # Run Drupal deploy if new build.
-cd /var/www/html
-DRUPAL_BULID_ID=$(bin/drush state:get azure_build_id)
-if [[ "$AZURE_BUILD_ID" != "$DRUPAL_BUILD_ID" ]]; then
-  # bin/drush deploy --yes
-  bin/drush updatedb --no-cache-clear --yes
-  bin/drush cache:rebuild
-  #bin/drush config:import --yes
-  bin/drush cache:rebuild
-  bin/drush deploy:hook --yes
-  bin/drush state:set azure_build_id $AZURE_BUILD_ID --yes
-fi
+# cd /var/www/html
+# DRUPAL_BULID_ID=$(bin/drush state:get azure_build_id)
+# if [[ "$AZURE_BUILD_ID" != "$DRUPAL_BUILD_ID" ]]; then
+#   bin/drush updatedb --no-cache-clear --yes
+#   bin/drush cache:rebuild
+#   #bin/drush config:import --yes
+#   bin/drush cache:rebuild
+#   bin/drush deploy:hook --yes
+#   bin/drush state:set azure_build_id $AZURE_BUILD_ID --yes
+# fi
 
 # Start SSH and Apache.
 service ssh start
