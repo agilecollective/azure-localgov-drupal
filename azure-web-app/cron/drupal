@@ -1,0 +1,8 @@
+##
+# Cron file for Drupal maintenance.
+
+# Drupal cron.
+*/10 * * * * www-data /var/www/html/bin/drush --root=/var/www/html/web --quiet cron
+
+# Nightly DB backup.
+5 0 * * * www-data /var/www/html/bin/drush --root=/var/www/html/web sql-dump > /var/www/share/db_dumps/nightly_backup.sql

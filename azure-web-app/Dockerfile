@@ -72,6 +72,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     echo "root:Docker!" | chpasswd
 COPY azure-web-app/ssh/sshd_config /etc/ssh/
 
+# Cron install.
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      cron && \
+    rm -rf /var/lib/apt/lists/*
+COPY azure-web-app/cron/drupal /etc/cron.d/drupal
+
 # Setup Drupal site.
 WORKDIR /var/www/html
 COPY . /var/www/html
