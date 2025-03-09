@@ -45,6 +45,7 @@ if [[ $(bin/drush status --field=bootstrap) ]] && [[ -n "$AZURE_BUILD_ID" ]] && 
   rm `ls -r | awk "NR>${KEEP_DB_DUMPS}"` | tee $LOG_FILE
 fi
 
-# Start SSH and Apache.
+# Start cron, SSH and Apache.
+cron
 service ssh start
 /usr/sbin/apache2ctl -D FOREGROUND
