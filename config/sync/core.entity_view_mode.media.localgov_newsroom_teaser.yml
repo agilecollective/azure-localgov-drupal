@@ -1,0 +1,13 @@
+uuid: c3448947-b723-4c7a-be4d-337b3f4e1542
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+_core:
+  default_config_hash: O79cil-8jZ1UbgWsevakAykC8Bcyhek69tUFqxPWtE0
+id: media.localgov_newsroom_teaser
+label: 'Newsroom teaser'
+description: ''
+targetEntityType: media
+cache: true

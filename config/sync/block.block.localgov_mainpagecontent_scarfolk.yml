@@ -1,0 +1,22 @@
+uuid: ef50db76-515b-4681-b62a-a04e95cd322a
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - localgov_scarfolk
+_core:
+  default_config_hash: xjT-PMJ_X0d1hz-hW2RTS2HI58Nv1lAvwxx7MPSs9-4
+id: localgov_mainpagecontent_scarfolk
+theme: localgov_scarfolk
+region: content
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  label_display: '0'
+  provider: system
+visibility: {  }

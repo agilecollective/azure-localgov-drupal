@@ -1,0 +1,13 @@
+uuid: e2ddc291-0c7b-43d3-b5a2-687f465a6018
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: hFQR3J7HGHPIoNacxC5kuAW4V6-y8myEz9FT13f8pwQ
+name: Event
+type: localgov_event
+description: 'An event to appear in the events listing and optionally integrate into a directory.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: false

@@ -1,0 +1,14 @@
+uuid: d9e9bb3e-505a-4390-b779-7be4daa5ad20
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.localgov_news_editor
+  module:
+    - user
+id: user_add_role_action.localgov_news_editor
+label: 'Add the News editor role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: localgov_news_editor

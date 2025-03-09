@@ -1,0 +1,16 @@
+uuid: daaf73b8-dd77-40ea-bce1-d7e35cf21619
+langcode: en
+status: true
+dependencies:
+  module:
+    - search_api_db
+_core:
+  default_config_hash: B0yGaCvrtgAZjRAC3bXw7MFEpKpqm5_Y0b_6lWVSFqQ
+id: localgov_sitewide_search
+name: 'Sitewide search'
+description: 'LocalGov Drupal default sitewide search.'
+backend: search_api_db
+backend_config:
+  database: 'default:default'
+  min_chars: 3
+  matching: prefix

@@ -1,0 +1,11 @@
+uuid: dad467f6-6ab2-4b64-9f52-13801f86de78
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: WToPEf4olAXX9wjmUumuHOMflMYBGZaYRmrgyk4ob1g
+name: 'Event category'
+vid: localgov_event_category
+description: 'Category used for filtering events.'
+weight: 0
+new_revision: false

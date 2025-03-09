@@ -1,0 +1,21 @@
+uuid: a212d500-7663-49dd-90c6-e6a485a4f6cd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.localgov_url
+    - paragraphs.paragraphs_type.localgov_banner_primary
+_core:
+  default_config_hash: hFJi6Invfc44RRl7RF8YDNyVFie9rqLHgU9m10XMPxQ
+id: paragraph.localgov_banner_primary.localgov_url
+field_name: localgov_url
+entity_type: paragraph
+bundle: localgov_banner_primary
+label: URL
+description: 'An optional url. Adding a url here will make the banner title a link.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

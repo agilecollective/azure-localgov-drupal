@@ -1,0 +1,12 @@
+uuid: fd8cf4e9-0f38-45c2-88c2-112c68bbf7cb
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: gjUn0WQH04_1wX3WgpzYupOUWmfQxwkkPlgDaAYoC4s
+id: localgov_key_contact_item
+label: 'Key contact item'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

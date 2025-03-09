@@ -1,0 +1,20 @@
+uuid: b79b7622-b0c4-4e25-bab8-424c3154d529
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: tobaGimwEVOvyO39fbR-wo44fhBKBJjy1IEwDeIrdHM
+id: node.localgov_service_status_on_list
+field_name: localgov_service_status_on_list
+entity_type: node
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

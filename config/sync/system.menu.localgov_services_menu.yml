@@ -1,0 +1,10 @@
+uuid: f3de9f6b-8f40-49fb-9fab-b5c0a84f5538
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: ydYiJB1sGGlS_EYUnQ0VLrpTDbByy-p9fvb481pz-xg
+id: localgov_services_menu
+label: 'Services menu'
+description: 'Service links'
+locked: false

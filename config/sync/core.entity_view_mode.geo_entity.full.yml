@@ -1,0 +1,13 @@
+uuid: 1ed96084-a101-4ad9-947a-9ab0bd1fc88d
+langcode: en
+status: true
+dependencies:
+  module:
+    - geo_entity
+_core:
+  default_config_hash: il3Ntl4khcN2oXElGyFY6HjxQQaoch18NmLLdofzMdw
+id: geo_entity.full
+label: Full
+description: ''
+targetEntityType: geo_entity
+cache: true
