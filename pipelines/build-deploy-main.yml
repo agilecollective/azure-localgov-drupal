@@ -3,6 +3,8 @@
 #
 # Builds main branch to a main tag and deploys to the main slot.
 
+name: Build and deploy main branch to preprod slot
+
 trigger:
   - main
 
@@ -57,7 +59,7 @@ stages:
               repository: $(imageRepository)
               dockerfile: $(dockerfilePath)
               buildContext: '.'
-              arguments: '--build-arg BUILD_ID=$(Build.SourceVersion) --build-arg ENVIRONMENT=$(drupalEnvironment)' # --build-arg BUILDKIT_INLINE_CACHE=1 --cache-from $(containerRegistry)/$(imageRepository):$(deployEnvironment) --cache-to type=inline'
+              arguments: '--build-arg BUILD_ID=$(Build.SourceVersion) --build-arg ENVIRONMENT=$(environment)' # --build-arg BUILDKIT_INLINE_CACHE=1 --cache-from $(containerRegistry)/$(imageRepository):$(deployEnvironment) --cache-to type=inline'
               tags: $(deployEnvironment)
 
           - task: Docker@2
