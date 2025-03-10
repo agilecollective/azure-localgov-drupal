@@ -1,4 +1,4 @@
-uuid: 5090fdf5-293e-4aed-a5d1-a581168ede98
+uuid: 2d596bb2-c529-4747-8055-7b518aa6603f
 langcode: en
 status: true
 dependencies:
@@ -27,9 +27,9 @@ matchers:
     uuid: c3257417-fce9-4307-8251-58672edf88be
     settings: {  }
     weight: 0
-  45b48fee-b6f5-4264-af02-b12e6704e1ef:
+  ebc0d7f1-3a26-4f6f-bafd-e171b2d09991:
     id: 'entity:paragraphs_library_item'
-    uuid: 45b48fee-b6f5-4264-af02-b12e6704e1ef
+    uuid: ebc0d7f1-3a26-4f6f-bafd-e171b2d09991
     settings:
       metadata: ''
       bundles:

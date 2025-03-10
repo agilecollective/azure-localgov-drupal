@@ -1,14 +1,14 @@
 _core:
   default_config_hash: yTxtFqBHnEWxQswuWvkjE8mKw2t8oKuCL1q8KnfHuGE
 langcode: en
-uuid: 7248514f-5ccc-450c-a5a2-f4c7cb3aa841
+uuid: bc5763ca-b025-4553-b5b0-151a4098371d
 name: 'LocalGov Drupal in Azure'
-mail: admin@example.com
+mail: admin@exmaple.com
 slogan: ''
 page:
   403: ''
   404: ''
-  front: /node/90
+  front: /node/75
 admin_compact_mode: false
 weight_select_max: 100
 default_langcode: en
