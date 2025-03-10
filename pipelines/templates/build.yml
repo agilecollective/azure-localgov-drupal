@@ -1,0 +1,43 @@
+##
+# Build and push image to container registry.
+
+stages:
+
+  # Build Docker image and pushes to Azure container registry.
+  - stage: Build
+    displayName: Build and push image
+    jobs:
+      - job: Build
+        displayName: Build
+        pool:
+          vmImage: 'ubuntu-latest'
+        steps:
+
+          # - task: Docker@2
+          #   displayName: Login to registry
+          #   inputs:
+          #     containerRegistry: $(dockerRegistryServiceConnection)
+          #     command: 'login'
+
+          # - script: "docker pull $(containerRegistry)/$(imageRepository):$(deployEnvironment)"
+          #   displayName: Pull latest for layer caching
+          #   continueOnError: true
+
+          - task: Docker@2
+            displayName: Build image
+            inputs:
+              command: build
+              containerRegistry: $(dockerRegistryServiceConnection)
+              repository: $(imageRepository)
+              dockerfile: $(dockerfilePath)
+              buildContext: '.'
+              arguments: '--build-arg BUILD_ID=$(Build.SourceVersion) --build-arg ENVIRONMENT=$(environment)' # --build-arg BUILDKIT_INLINE_CACHE=1 --cache-from $(containerRegistry)/$(imageRepository):$(deployEnvironment) --cache-to type=inline'
+              tags: $(deployEnvironment)
+
+          - task: Docker@2
+            displayName: Push image to container registry
+            inputs:
+              command: push
+              containerRegistry: $(dockerRegistryServiceConnection)
+              repository: $(imageRepository)
+              tags: $(deployEnvironment)
