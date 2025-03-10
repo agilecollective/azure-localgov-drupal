@@ -14,7 +14,7 @@ stages:
         steps:
 
           - task: AzureAppServiceManage@0
-            displayName: Restart container
+            displayName: Switch slot
             inputs:
               azureSubscription: $(resourceManagerServiceConnection)
               ResourceGroupName: $(resourceGroupName)
