@@ -7,9 +7,6 @@ name: Build and deploy main branch to preprod slot
 
 trigger: none
 
-resources:
-  - repo: self
-
 variables:
 
   # Build vars.
@@ -29,64 +26,5 @@ variables:
   environment: 'production'
 
 stages:
-
-  # Build Docker image and pushes to Azure container registry.
-  - stage: Build
-    displayName: Build and push image
-    jobs:
-      - job: Build
-        displayName: Build
-        pool:
-          vmImage: 'ubuntu-latest'
-        steps:
-
-          # - task: Docker@2
-          #   displayName: Login to registry
-          #   inputs:
-          #     containerRegistry: $(dockerRegistryServiceConnection)
-          #     command: 'login'
-
-          # - script: "docker pull $(containerRegistry)/$(imageRepository):$(deployEnvironment)"
-          #   displayName: Pull latest for layer caching
-          #   continueOnError: true
-
-          - task: Docker@2
-            displayName: Build image
-            inputs:
-              command: build
-              containerRegistry: $(dockerRegistryServiceConnection)
-              repository: $(imageRepository)
-              dockerfile: $(dockerfilePath)
-              buildContext: '.'
-              arguments: '--build-arg BUILD_ID=$(Build.SourceVersion) --build-arg ENVIRONMENT=$(environment)' # --build-arg BUILDKIT_INLINE_CACHE=1 --cache-from $(containerRegistry)/$(imageRepository):$(deployEnvironment) --cache-to type=inline'
-              tags: $(deployEnvironment)
-
-          - task: Docker@2
-            displayName: Push image to container registry
-            inputs:
-              command: push
-              containerRegistry: $(dockerRegistryServiceConnection)
-              repository: $(imageRepository)
-              tags: $(deployEnvironment)
-
-  # Deploy Docker image to web app.
-  - stage: Deploy
-    displayName: Deploy Drupal image.
-    jobs:
-      - job: Deploy
-        displayName: Deploy
-        pool:
-          vmImage: 'ubuntu-latest'
-        steps:
-          - task: AzureRmWebAppDeployment@5
-            displayName: Deploy image
-            inputs:
-              azureSubscription: $(resourceManagerServiceConnection)
-              ResourceGroupName: $(resourceGroupName)
-              appType: webAppContainer
-              WebAppName: $(webAppName)
-              SlotName: $(deploySlot)
-              deployToSlotOrASE: true
-              DockerNamespace: $(containerRegistry)
-              DockerRepository: $(imageRepository)
-              DockerImageTag: $(deployEnvironment)
+  - template: templates/build.yml
+  - template: templates/deploy.yml

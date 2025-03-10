@@ -1,7 +1,8 @@
 ##
-# Deploy WebApp pipeline template.
+# Deploy image to web app slot.
 
 stages:
+
   # Deploy Docker image to web app.
   - stage: Deploy
     displayName: Deploy Drupal image.
