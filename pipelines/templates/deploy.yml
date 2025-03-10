@@ -20,7 +20,7 @@ stages:
               appType: webAppContainer
               WebAppName: $(webAppName)
               deployToSlotOrASE: true
-              SlotName: $(deploySlot)
+              Slot: $(deploySlot)
               DockerNamespace: $(containerRegistry)
               DockerRepository: $(imageRepository)
               DockerImageTag: $(deployEnvironment)

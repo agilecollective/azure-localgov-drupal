@@ -10,15 +10,15 @@ variables:
   # Build vars.
   containerRegistry: 'crlgd.azurecr.io'
   imageRepository: 'lgd/drupal'
-  
+
   # Deploy vars.
   resourceManagerServiceConnection: 'f37bf063-ea52-4f2e-9d41-8e2b2c4e3391'
   resourceGroupName: 'rg-lgd-uksouth-001'
   webAppName: 'app-lgd-001'
+  deploySlot: 'app-slot-preprod'
 
   # Environment to build and deploy.
   deployEnvironment: $(Build.SourceBranchName)
-  deploySlot: 'app-slot-preprod'
   environment: 'production'
 
 stages:
