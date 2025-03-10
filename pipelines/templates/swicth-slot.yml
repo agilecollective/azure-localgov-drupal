@@ -1,0 +1,24 @@
+##
+# Switch web app slots.
+
+stages:
+
+  # Switch container between slots.
+  - stage: Make live
+    displayName: Switch slots
+    jobs:
+      - job: Switch
+        displayName: Switch
+        pool:
+          vmImage: 'ubuntu-latest'
+        steps:
+
+          - task: AzureAppServiceManage@0
+            displayName: Restart container
+            inputs:
+              azureSubscription: $(resourceManagerServiceConnection)
+              ResourceGroupName: $(resourceGroupName)
+              WebAppName: $(webAppName)
+              SourceSlot: $(sourceSlot)
+              TargetSlot: $(targetSlot)
+              Action: 'Swap Slots'
