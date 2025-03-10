@@ -11,6 +11,7 @@ stages:
         pool:
           vmImage: 'ubuntu-latest'
         steps:
+
           - task: AzureRmWebAppDeployment@5
             displayName: Deploy image
             inputs:
@@ -18,8 +19,18 @@ stages:
               ResourceGroupName: $(resourceGroupName)
               appType: webAppContainer
               WebAppName: $(webAppName)
-              SlotName: $(deploySlot)
               deployToSlotOrASE: true
+              SlotName: $(deploySlot)
               DockerNamespace: $(containerRegistry)
               DockerRepository: $(imageRepository)
               DockerImageTag: $(deployEnvironment)
+
+          - task: AzureAppServiceManage@0
+            displayName: Restart container
+            inputs:
+              azureSubscription: $(resourceManagerServiceConnection)
+              ResourceGroupName: $(resourceGroupName)
+              WebAppName: $(webAppName)
+              SpecifySlotOrASE: true
+              SlotName: $(deploySlot)
+              Action: 'Restart Azure App Service'

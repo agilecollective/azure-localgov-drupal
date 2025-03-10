@@ -5,8 +5,7 @@
 
 name: Build and deploy main branch to preprod slot
 
-trigger:
-  - main
+trigger: none
 
 resources:
   - repo: self
@@ -18,7 +17,7 @@ variables:
   containerRegistry: 'crlgd.azurecr.io'
   imageRepository: 'lgd/drupal'
   dockerfilePath: '$(Build.SourcesDirectory)/azure-web-app/Dockerfile'
-  
+
   # Deploy vars.
   resourceManagerServiceConnection: 'f37bf063-ea52-4f2e-9d41-8e2b2c4e3391'
   resourceGroupName: 'rg-lgd-uksouth-001'
