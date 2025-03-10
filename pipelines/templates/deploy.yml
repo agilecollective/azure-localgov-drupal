@@ -21,7 +21,7 @@ stages:
               appType: webAppContainer
               WebAppName: $(webAppName)
               deployToSlotOrASE: true
-              Slot: $(deploySlot)
+              SlotName: $(deploySlot)
               DockerNamespace: $(containerRegistry)
               DockerRepository: $(imageRepository)
               DockerImageTag: $(deployEnvironment)
@@ -33,5 +33,5 @@ stages:
               ResourceGroupName: $(resourceGroupName)
               WebAppName: $(webAppName)
               SpecifySlotOrASE: true
-              SlotName: $(deploySlot)
+              Slot: $(deploySlot)
               Action: 'Restart Azure App Service'
