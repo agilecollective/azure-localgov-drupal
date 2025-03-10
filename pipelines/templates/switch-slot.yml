@@ -4,7 +4,7 @@
 stages:
 
   # Switch container between slots.
-  - stage: Make live
+  - stage: finalise
     displayName: Switch slots
     jobs:
       - job: Switch
