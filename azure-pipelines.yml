@@ -24,6 +24,6 @@ stages:
         targetType: inline
         script: |
           set -e
-          mysqldump --ssl-ca=/etc/ssl/certs/Baltimore_CyberTrust_Root.pem -u $(AZURE_MYSQL_USERNAME) -p"$(AZURE_MYSQL_PASSWORD)" -h $(AZURE_MYSQL_HOST) $(AZURE_MYSQL_DBNAME) > dump.sql
+          mysqldump --ssl-ca=/etc/ssl/certs/Baltimore_CyberTrust_Root.pem -u $AZURE_MYSQL_USERNAME -p"$AZURE_MYSQL_PASSWORD" -h $AZURE_MYSQL_HOST $AZURE_MYSQL_DBNAME > dump.sql
 
 
