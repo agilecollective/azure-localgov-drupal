@@ -1,0 +1,29 @@
+##
+# Copy DB from prod to uat.
+
+
+variables:
+  AZURE_MYSQL_DBNAME: db_prod
+
+stages:
+- stage: copy_db
+  displayName: Copy DB from producyion to UAT
+  jobs:
+
+  - job: create_and_copy_db_dump
+    displayName: Create and copy database dump
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    # @see https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/utility/bash
+    # @see https://docs.microsoft.com/en-us/azure/devops/pipelines/scripts/logging-commands
+    - task: bash@3
+      displayName: Create database dump
+      name: create_db_dump
+      inputs:
+        targetType: inline
+        script: |
+          set -e
+          mysqldump --ssl-ca=/etc/ssl/certs/Baltimore_CyberTrust_Root.pem -u $(AZURE_MYSQL_USERNAME) -p"$(AZURE_MYSQL_PASSWORD)" -h $(AZURE_MYSQL_HOST) $(AZURE_MYSQL_DBNAME) > dump.sql
+
+
