@@ -1,5 +1,14 @@
 ##
 # Deploy image to web app slot.
+#
+# This template requires the following variables:
+#   - resourceManagerServiceConnection => Resource manager connection ID.
+#   - resourceGroupName => Name of Azure resource groupn the web app lives in.
+#   - webAppName => Name of Azure web app.
+#   - deploySlot => Web app slot to deploy to.
+#   - containerRegistry => Container registry name.
+#   - imageRepository => Repository in Docker container registry.
+#   - deployEnvironment => Environment to build; main, dev or uat.
 
 stages:
 

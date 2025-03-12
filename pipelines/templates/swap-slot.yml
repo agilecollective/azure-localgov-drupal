@@ -1,0 +1,31 @@
+##
+# Swap web app slots.
+#
+# This template requires the following variables:
+#   - resourceManagerServiceConnection => Resource manager connection ID.
+#   - resourceGroupName => Name of Azure resource groupn the web app lives in.
+#   - webAppName => Name of Azure web app.
+#   - sourceSlot => Source slot to swap.
+#   - targetSlot => Target slot to swap.
+
+stages:
+
+  # Swap container between slots.
+  - stage: finalise
+    displayName: Swap slots
+    jobs:
+      - job: Swap slots
+        displayName: Swap slots
+        pool:
+          vmImage: 'ubuntu-latest'
+        steps:
+
+          - task: AzureAppServiceManage@0
+            displayName: Swap slots
+            inputs:
+              azureSubscription: $(resourceManagerServiceConnection)
+              ResourceGroupName: $(resourceGroupName)
+              WebAppName: $(webAppName)
+              SourceSlot: $(sourceSlot)
+              TargetSlot: $(targetSlot)
+              Action: 'Swap Slots'

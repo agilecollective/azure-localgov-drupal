@@ -13,4 +13,4 @@ variables:
     value: 'production'
 
 stages:
-  - template: templates/switch-slot.yml
+  - template: templates/swap-slot.yml

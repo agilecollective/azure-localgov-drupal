@@ -1,29 +1,21 @@
 ##
-# Build and deploy to preprod slot.
-#
-# Builds main branch to a main tag and deploys to the main slot.
+# Build main branch and deploys to the preprod slot.
 
 name: Build and deploy main branch to preprod slot
 
-trigger: none
+trigger:
+  - main
 
 variables:
-
-  # Build vars.
-  dockerRegistryServiceConnection: '5d3bc1f7-e5cb-4616-81cc-73806dae81b6'
-  containerRegistry: 'crlgd.azurecr.io'
-  imageRepository: 'lgd/drupal'
-  dockerfilePath: '$(Build.SourcesDirectory)/azure-web-app/Dockerfile'
-
-  # Deploy vars.
-  resourceManagerServiceConnection: 'f37bf063-ea52-4f2e-9d41-8e2b2c4e3391'
-  resourceGroupName: 'rg-lgd-uksouth-001'
-  webAppName: 'app-lgd-001'
-
-  # Environment to build and deploy.
-  deployEnvironment: $(Build.SourceBranchName)
-  deploySlot: 'app-slot-preprod'
-  environment: 'production'
+  - group: azure-resources
+  - name: dockerfilePath
+    value: '$(Build.SourcesDirectory)/azure-web-app/Dockerfile'
+  - name: deployEnvironment
+    value: $(Build.SourceBranchName)
+  - name: deploySlot
+    value: 'app-slot-preprod'
+  - name: environment
+    value: 'production'
 
 stages:
   - template: templates/build.yml

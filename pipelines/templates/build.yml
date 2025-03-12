@@ -1,5 +1,12 @@
 ##
 # Build and push image to container registry.
+#
+# This template requires the following variables:
+#   - dockerRegistryServiceConnection => Connection ID for Docker registry service connection
+#   - imageRepository => Repository in Docker registry.
+#   - dockerfilePath => Dockerfile to build.
+#   - deployEnvironment => Environment to build; main, dev or uat.
+#   - environment => Drupal environment; production, dev or uat.
 
 stages:
 
