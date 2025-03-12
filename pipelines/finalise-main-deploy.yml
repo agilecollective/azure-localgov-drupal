@@ -6,12 +6,11 @@ name: Finalise main deploy
 trigger: none
 
 variables:
-
-  resourceManagerServiceConnection: 'f37bf063-ea52-4f2e-9d41-8e2b2c4e3391'
-  resourceGroupName: 'rg-lgd-uksouth-001'
-  webAppName: 'app-lgd-001'
-  sourceSlot: 'app-slot-preprod'
-  targetSlot: 'production'
+  - group: azure-resources
+  - name:  sourceSlot
+    value: 'app-slot-preprod'
+  - name:  targetSlot
+    value: 'production'
 
 stages:
   - template: templates/switch-slot.yml
