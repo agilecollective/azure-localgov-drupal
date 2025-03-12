@@ -1,10 +1,10 @@
 ##
-# Build main branch and deploy to the preprod slot.
+# Build dev branch and deploy to the dev slot.
 
-name: Build and deploy main branch to preprod slot
+name: Build and deploy dev branch to dev slot
 
 trigger:
-  - main
+  - dev
 
 variables:
   - group: azure-resources
@@ -13,9 +13,9 @@ variables:
   - name: deployEnvironment
     value: $(Build.SourceBranchName)
   - name: deploySlot
-    value: 'app-slot-preprod'
+    value: 'app-slot-dev'
   - name: environment
-    value: 'production'
+    value: 'dev'
 
 stages:
   - template: templates/build.yml

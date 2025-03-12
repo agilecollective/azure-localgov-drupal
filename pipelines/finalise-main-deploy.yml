@@ -1,5 +1,5 @@
 ##
-# Finalise main deploy by swicthing preprod slot to production.
+# Finalise main deploy by swapping preprod slot to production.
 
 name: Finalise main deploy
 

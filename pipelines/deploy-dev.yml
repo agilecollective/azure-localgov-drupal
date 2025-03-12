@@ -1,0 +1,16 @@
+##
+# Deploy dev image.
+
+name: Deploy dev image to dev slot
+
+trigger: none
+
+variables:
+  - group: azure-resources
+  - name: deployEnvironment
+    value: 'dev'
+  - name: deploySlot
+    value: 'app-slot-dev'
+
+stages:
+  - template: templates/deploy.yml

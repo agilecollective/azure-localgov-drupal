@@ -1,0 +1,16 @@
+##
+# Deploy uat image.
+
+name: Deploy uat image to uat slot
+
+trigger: none
+
+variables:
+  - group: azure-resources
+  - name: deployEnvironment
+    value: 'uat'
+  - name: deploySlot
+    value: 'app-slot-uat'
+
+stages:
+  - template: templates/deploy.yml
