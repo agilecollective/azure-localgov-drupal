@@ -7,12 +7,12 @@ trigger: none
 
 variables:
   - group: db
-  - name: AZURE_MYSQL_DBNAME
-    value: db_prod
+  - name: destinationDatabase
+    value: db_uat
 
 stages:
-  - stage: copy_db
-    displayName: Copy DB from producyion to UAT
+  - stage: replace_db
+    displayName: Copy DB from production to UAT
     jobs:
       - job: create_and_copy_db_dump
         displayName: Create and copy database dump
@@ -20,12 +20,9 @@ stages:
           vmImage: 'ubuntu-latest'
         steps:
           - task: bash@3
-            displayName: Create database dump
-            name: create_db_dump
+            displayName: Replace database
             inputs:
               targetType: inline
               script: |
-                set -e
                 mysqldump --ssl-ca=/etc/ssl/certs/DigiCert_Global_Root_CA.pem -u $(AZURE_MYSQL_USERNAME) -p"$(AZURE_MYSQL_PASSWORD)" -h $(AZURE_MYSQL_HOST) $(AZURE_MYSQL_DBNAME) > dump.sql
-                ls -la
-                printenv
+                mysql --ssl-ca=/etc/ssl/certs/DigiCert_Global_Root_CA.pem -u $(AZURE_MYSQL_USERNAME) -p"$(AZURE_MYSQL_PASSWORD)" -h $(AZURE_MYSQL_HOST) $(destinationDatabase) < dump.sql
