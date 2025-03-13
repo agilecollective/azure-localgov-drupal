@@ -33,10 +33,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       libonig-dev \
       libpng-dev \
       libxml2-dev \
+      libwebp-dev \
       libzip-dev \
       zlib1g-dev && \
     rm -rf /var/lib/apt/lists/* && \
-    docker-php-ext-configure gd --with-freetype --with-jpeg  && \
+    docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp && \
     docker-php-ext-install -j$(nproc) gd && \
     docker-php-ext-install \
       bcmath \
