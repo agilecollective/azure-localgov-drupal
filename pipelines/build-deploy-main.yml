@@ -3,8 +3,7 @@
 
 name: Build and deploy main branch to preprod slot
 
-trigger:
-  - main
+trigger: none
 
 variables:
   - group: azure-resources
