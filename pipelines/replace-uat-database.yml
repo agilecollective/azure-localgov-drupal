@@ -1,0 +1,16 @@
+##
+# Replace UAT database with production.
+
+name: Replace UAT database with production.
+
+trigger: none
+
+variables:
+  - group: db
+  - name: sourceDatabase
+    value: $[variables.productionDatabase]
+  - name: destinationDatabase
+    value: $[variables.uatDatabase]
+
+stages:
+  - template: templates/replace-database.yml

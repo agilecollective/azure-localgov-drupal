@@ -1,0 +1,39 @@
+##
+# Import database from source into destination.
+
+# This template requires the following variables:
+#   - mysqlHost => MySQL database host.
+#   - mysqlUser => MySQL user with read permissions on source and write permissions on destination.
+#   - mysqlPassword => Password for mysqlUser.
+#   - sourceDatabase => The name of the database to take the dump from.
+#   - destinationDatabase => The name of the database to replace.
+
+stages:
+  - stage: replace_db
+    displayName: Replace database
+    jobs:
+      - job: replace_db
+        displayName: Replace database
+        pool:
+          vmImage: 'ubuntu-latest'
+        steps:
+
+          # Create a dump of the source DB, empty destination DB and them import source.
+          - task: bash@3
+            displayName: Replace database
+            inputs:
+              targetType: inline
+              script: |
+                CONNECTION_STRING="-u $(mysqlUser) -p"$(mysqlPassword)" -h $(mysqlHost) --ssl-ca=/etc/ssl/certs/DigiCert_Global_Root_CA.pem"
+
+                # Create dump of source.
+                mysqldump $CONNECTION_STRING $(sourceDatabase) > "$(sourceDatabase)_dump.sql"
+
+                # Delete all tables in destination.
+                echo "SET FOREIGN_KEY_CHECKS = 0;" > drop_tables.sql
+                mysqldump $CONNECTION_STRING --add-drop-table --no-data $(sourceDatabase) | grep 'DROP TABLE' >> drop_tables.sql
+                echo "SET FOREIGN_KEY_CHECKS = 1;" >> drop_tables.sql
+                mysql $CONNECTION_STRING $(destinationDatabase) < drop_tables.sql
+
+                # Import source into destination.
+                mysql $CONNECTION_STRING $(destinationDatabase) < "$(sourceDatabase)_dump.sql"

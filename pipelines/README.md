@@ -39,12 +39,12 @@ For the pipelines to run the following [variable groups](https://learn.microsoft
 
 This variable group defines general settings for connecting to the different Azure resources and can set as open access so all pipelines can access it.
 
+* containerRegistry => Container registry name.
 * dockerRegistryServiceConnection => Connection UUID for Docker registry service connection
 * imageRepository => Repository in Docker registry.
-* dockerfilePath => Dockerfile to build.
-* deployEnvironment => Environment to build; main, dev or uat.
-environment
-* Drupal environment => production, dev or uat.
+* resourceGroupName => Name of Azure resource groupn the web app lives in.
+* resourceManagerServiceConnection => Resource manager connection UUID.
+* webAppName => Name of Azure web app.
 
 ### db
 
@@ -52,6 +52,9 @@ This variable group contains the username and password of a database user that n
 
 It only needs to be accessible to the copy database pipelines.
 
-* AZURE_MYSQL_HOST => MySQL host
-* AZURE_MYSQL_PASSWORD => Password of user with permissions to read production database and overwrite dev and uat.
-* AZURE_MYSQL_PASSWORD => User name of user with permissions to read production database and overwrite dev and uat.
+* mysqlHost => MySQL database host.
+* mysqlUser => MySQL user with read permissions on source and write permissions on destination.
+* mysqlPassword => Password for mysqlUser.
+* productionDatabase => The name of the production database.
+* devDatabase => The name of the dev database.
+* uatDatabase => The name of the uat database.
