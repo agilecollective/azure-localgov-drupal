@@ -1,0 +1,17 @@
+uuid: ae93dcb1-f06c-40ef-afef-84617c04ef40
+langcode: en
+status: false
+dependencies: {  }
+id: local
+label: Local
+description: 'Local site config.'
+weight: 0
+stackable: false
+no_patching: false
+storage: folder
+folder: ../config/local
+module:
+  stage_file_proxy: 0
+theme: {  }
+complete_list: {  }
+partial_list: {  }

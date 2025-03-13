@@ -162,6 +162,11 @@ ini_set('display_errors', TRUE);
 ini_set('display_startup_errors', TRUE);
 
 /**
+ * Config split.
+ */
+$config['config_split.config_split.local']['status'] = TRUE;
+
+/**
  * Stage file proxy.
  *
  * To use stage file proxy you will need the module enabled. Then uncomment
@@ -171,4 +176,3 @@ ini_set('display_startup_errors', TRUE);
  * domain (usually production, sometimes development) with the images.
  */
 // $config['stage_file_proxy.settings']['origin'] = 'http://example.com';
-

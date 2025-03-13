@@ -1,0 +1,17 @@
+uuid: e722f243-8cbd-442c-b772-f02281108f0e
+langcode: en
+status: false
+dependencies: {  }
+id: uat
+label: UAT
+description: 'UAT site config.'
+weight: 0
+stackable: false
+no_patching: false
+storage: folder
+folder: ../config/uat
+module:
+  stage_file_proxy: 0
+theme: {  }
+complete_list: {  }
+partial_list: {  }

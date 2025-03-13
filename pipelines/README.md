@@ -18,7 +18,7 @@ These pipelines just deploy a previously built main, dev, or uat image to the pr
 
 The main branch deploys automatically to the preprod slot. This pipeline is used to finalise the deploy by switching the preprod slot into the production slot.
 
-### Copy database
+### Replace database
 
 These pipelines wipe the dev or uat databases and replace it with a copy of the production database.
 
@@ -50,7 +50,7 @@ This variable group defines general settings for connecting to the different Azu
 
 This variable group contains the username and password of a database user that needs to have read access to the production database and all privileges on the dev and uat databases.
 
-It only needs to be accessible to the copy database pipelines.
+It only needs to be accessible to the replace database pipelines.
 
 * mysqlHost => MySQL database host.
 * mysqlUser => MySQL user with read permissions on source and write permissions on destination.

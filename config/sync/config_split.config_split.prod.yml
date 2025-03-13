@@ -1,0 +1,16 @@
+uuid: 7e9ebe37-aa70-44a8-a04f-6a13ae892829
+langcode: en
+status: false
+dependencies: {  }
+id: prod
+label: Production
+description: 'Production site config.'
+weight: 0
+stackable: false
+no_patching: false
+storage: folder
+folder: ../config/prod
+module: {  }
+theme: {  }
+complete_list: {  }
+partial_list: {  }

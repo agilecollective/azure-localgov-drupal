@@ -82,29 +82,7 @@ COPY azure-web-app/cron/drupal /etc/cron.d/drupal
 WORKDIR /var/www/html
 COPY . /var/www/html
 RUN composer install --no-interaction --prefer-dist --no-dev && \
-    rm -fr ~/.composer && \
-    echo "\
-\n\
-/**\n\
- * Azure database credentials.\n\
- */\n\
-\$databases['default']['default'] = [\n\
-  'database' => getenv('AZURE_MYSQL_DBNAME'),\n\
-  'username' => getenv('AZURE_MYSQL_USERNAME'),\n\
-  'password' => getenv('AZURE_MYSQL_PASSWORD'),\n\
-  'host' => getenv('AZURE_MYSQL_HOST'),\n\
-  'port' => getenv('AZURE_MYSQL_PORT'),\n\
-  'driver' => 'mysql',\n\
-  'prefix' => '',\n\
-  'collation' => 'utf8mb4_general_ci',\n\
-  'pdo' => [\n\
-    \\PDO::MYSQL_ATTR_SSL_CA   => '/etc/ssl/certs/DigiCert_Global_Root_CA.pem',\n\
-    \\PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => FALSE,\n\
-  ],\n\
-];\n\
-\n\
-\$settings['file_private_path'] = '/var/www/share/private';\n\
-" >> /var/www/html/web/sites/default/settings.php
+    rm -fr ~/.composer
 
 # Set startup script.
 COPY azure-web-app/entrypoint.sh /entrypoint.sh

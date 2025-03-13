@@ -1,0 +1,17 @@
+uuid: 2a39bcb0-6f0d-468f-b2c9-a8a3c83a7ba0
+langcode: en
+status: false
+dependencies: {  }
+id: dev
+label: Dev
+description: 'Dev site config.'
+weight: 0
+stackable: false
+no_patching: false
+storage: folder
+folder: ../config/dev
+module:
+  stage_file_proxy: 0
+theme: {  }
+complete_list: {  }
+partial_list: {  }

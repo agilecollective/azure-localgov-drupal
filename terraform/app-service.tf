@@ -36,12 +36,14 @@ resource "azurerm_linux_web_app" "app" {
     }
   }
   app_settings = {
-    "AZURE_MYSQL_DBNAME"   = azurerm_mysql_flexible_database.db_prod.name
-    "AZURE_MYSQL_FLAG"     = "MYSQLI_CLIENT_SSL"
-    "AZURE_MYSQL_HOST"     = azurerm_mysql_flexible_server.mysql.fqdn
-    "AZURE_MYSQL_PASSWORD" = azurerm_mysql_flexible_server.mysql.administrator_password
-    "AZURE_MYSQL_PORT"     = "3306"
-    "AZURE_MYSQL_USERNAME" = azurerm_mysql_flexible_server.mysql.administrator_login
+    "AZURE_CANONICAL_URL"   = "https://${azurerm_cdn_frontdoor_endpoint.prod.host_name}"
+    "AZURE_ENVIRONMENT_URL" = "https://${azurerm_cdn_frontdoor_endpoint.prod.host_name}"
+    "AZURE_MYSQL_DBNAME"    = azurerm_mysql_flexible_database.db_prod.name
+    "AZURE_MYSQL_FLAG"      = "MYSQLI_CLIENT_SSL"
+    "AZURE_MYSQL_HOST"      = azurerm_mysql_flexible_server.mysql.fqdn
+    "AZURE_MYSQL_PASSWORD"  = azurerm_mysql_flexible_server.mysql.administrator_password
+    "AZURE_MYSQL_PORT"      = "3306"
+    "AZURE_MYSQL_USERNAME"  = azurerm_mysql_flexible_server.mysql.administrator_login
   }
   connection_string {
     name  = "Database"
@@ -58,6 +60,7 @@ resource "azurerm_linux_web_app" "app" {
   }
   sticky_settings {
     app_setting_names = [
+      "AZURE_ENVIRONMENT_URL",
       "AZURE_MYSQL_HOST",
       "AZURE_MYSQL_PORT",
       "AZURE_MYSQL_DATABASE",
@@ -83,14 +86,15 @@ resource "azurerm_linux_web_app_slot" "preprod" {
   app_service_id = azurerm_linux_web_app.app.id
   https_only = true
   app_settings = {
-    "AZURE_MYSQL_DBNAME"   = azurerm_mysql_flexible_database.db_prod.name
-    "AZURE_MYSQL_FLAG"     = "MYSQLI_CLIENT_SSL"
-    "AZURE_MYSQL_HOST"     = azurerm_mysql_flexible_server.mysql.fqdn
-    "AZURE_MYSQL_PASSWORD" = azurerm_mysql_flexible_server.mysql.administrator_password
-    "AZURE_MYSQL_PORT"     = "3306"
-    "AZURE_MYSQL_USERNAME" = azurerm_mysql_flexible_server.mysql.administrator_login
-    "AZURE_MYSQL_SSL"      = "true"
-    "DOCKER_ENABLE_CI"     = "true"
+    "AZURE_ENVIRONMENT_URL" = "https://${azurerm_cdn_frontdoor_endpoint.preprod.host_name}"
+    "AZURE_MYSQL_DBNAME"    = azurerm_mysql_flexible_database.db_prod.name
+    "AZURE_MYSQL_FLAG"      = "MYSQLI_CLIENT_SSL"
+    "AZURE_MYSQL_HOST"      = azurerm_mysql_flexible_server.mysql.fqdn
+    "AZURE_MYSQL_PASSWORD"  = azurerm_mysql_flexible_server.mysql.administrator_password
+    "AZURE_MYSQL_PORT"      = "3306"
+    "AZURE_MYSQL_USERNAME"  = azurerm_mysql_flexible_server.mysql.administrator_login
+    "AZURE_MYSQL_SSL"       = "true"
+    "DOCKER_ENABLE_CI"      = "true"
   }
   connection_string {
     name  = "Database"
@@ -123,14 +127,15 @@ resource "azurerm_linux_web_app_slot" "dev" {
   app_service_id = azurerm_linux_web_app.app.id
   https_only = true
   app_settings = {
-    "AZURE_MYSQL_DBNAME"   = azurerm_mysql_flexible_database.db_dev.name
-    "AZURE_MYSQL_FLAG"     = "MYSQLI_CLIENT_SSL"
-    "AZURE_MYSQL_HOST"     = azurerm_mysql_flexible_server.mysql.fqdn
-    "AZURE_MYSQL_PASSWORD" = azurerm_mysql_flexible_server.mysql.administrator_password
-    "AZURE_MYSQL_PORT"     = "3306"
-    "AZURE_MYSQL_USERNAME" = azurerm_mysql_flexible_server.mysql.administrator_login
-    "AZURE_MYSQL_SSL"      = "true"
-    "DOCKER_ENABLE_CI"     = "true"
+    "AZURE_ENVIRONMENT_URL" = "https://${azurerm_cdn_frontdoor_endpoint.dev.host_name}"
+    "AZURE_MYSQL_DBNAME"    = azurerm_mysql_flexible_database.db_dev.name
+    "AZURE_MYSQL_FLAG"      = "MYSQLI_CLIENT_SSL"
+    "AZURE_MYSQL_HOST"      = azurerm_mysql_flexible_server.mysql.fqdn
+    "AZURE_MYSQL_PASSWORD"  = azurerm_mysql_flexible_server.mysql.administrator_password
+    "AZURE_MYSQL_PORT"      = "3306"
+    "AZURE_MYSQL_USERNAME"  = azurerm_mysql_flexible_server.mysql.administrator_login
+    "AZURE_MYSQL_SSL"       = "true"
+    "DOCKER_ENABLE_CI"      = "true"
   }
   site_config {
     application_stack {
@@ -158,14 +163,15 @@ resource "azurerm_linux_web_app_slot" "uat" {
   app_service_id = azurerm_linux_web_app.app.id
   https_only = true
   app_settings = {
-    "AZURE_MYSQL_DBNAME"   = azurerm_mysql_flexible_database.db_uat.name
-    "AZURE_MYSQL_FLAG"     = "MYSQLI_CLIENT_SSL"
-    "AZURE_MYSQL_HOST"     = azurerm_mysql_flexible_server.mysql.fqdn
-    "AZURE_MYSQL_PASSWORD" = azurerm_mysql_flexible_server.mysql.administrator_password
-    "AZURE_MYSQL_PORT"     = "3306"
-    "AZURE_MYSQL_USERNAME" = azurerm_mysql_flexible_server.mysql.administrator_login
-    "AZURE_MYSQL_SSL"      = "true"
-    "DOCKER_ENABLE_CI"     = "true"
+    "AZURE_ENVIRONMENT_URL" = "https://${azurerm_cdn_frontdoor_endpoint.uat.host_name}"
+    "AZURE_MYSQL_DBNAME"    = azurerm_mysql_flexible_database.db_uat.name
+    "AZURE_MYSQL_FLAG"      = "MYSQLI_CLIENT_SSL"
+    "AZURE_MYSQL_HOST"      = azurerm_mysql_flexible_server.mysql.fqdn
+    "AZURE_MYSQL_PASSWORD"  = azurerm_mysql_flexible_server.mysql.administrator_password
+    "AZURE_MYSQL_PORT"      = "3306"
+    "AZURE_MYSQL_USERNAME"  = azurerm_mysql_flexible_server.mysql.administrator_login
+    "AZURE_MYSQL_SSL"       = "true"
+    "DOCKER_ENABLE_CI"      = "true"
   }
   site_config {
     application_stack {
