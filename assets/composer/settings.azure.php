@@ -25,6 +25,11 @@
 $settings['file_private_path'] = '/var/www/share/private';
 
 /**
+ * Salt for one-time login links, cancel links, form tokens, etc.
+ */
+$settings['hash_salt'] = file_get_contents('/var/www/share/private/salt.txt');
+
+/**
  * Reverse proxy configuration.
  */
 $settings['reverse_proxy'] = TRUE;

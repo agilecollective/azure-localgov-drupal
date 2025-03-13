@@ -8,9 +8,6 @@ set -e
 # Number of DB dumps to keep.
 KEEP_DB_DUMPS=3
 
-# Drupal deploy log.
-LOG_FILE=/var/log/drupal-deploy.log
-
 # Inject environmental variables.
 echo "# Azure database variables" >> /etc/apache2/envvars
 printenv | grep AZURE_ | awk '{print "export "$0}' >> /etc/apache2/envvars
@@ -23,26 +20,32 @@ mkdir -p /var/www/share/private
 mkdir -p /var/www/share/public
 ln -snf  /var/www/share/public /var/www/html/web/sites/default/files
 
-# Run Drupal deploy if new build.
 cd /var/www/html
+
+# Ensure hash salt is set.
+if [ ! -f /var/www/share/private/salt.txt ]; then
+  bin/drush eval "echo Drupal\Component\Utility\Crypt::randomBytesBase64(55)" > /var/www/share/private/salt.txt
+fi
+
+# Run Drupal deploy if new build.
 if [[ $(bin/drush status --field=bootstrap) ]] && [[ -n "$AZURE_BUILD_ID" ]] && [[ $(bin/drush state:get azure_build_id) != "$AZURE_BUILD_ID" ]]; then
 
-  echo "Backing up database" | tee $LOG_FILE
-  bin/drush sql-dump > "/var/www/share/db_dumps/deploy/$(date +'%Y-%m-%d-%H%M%S').sql" | tee $LOG_FILE
+  echo "Backing up database"
+  bin/drush sql-dump > "/var/www/share/db_dumps/deploy/$(date +'%Y-%m-%d-%H%M%S').sql"
 
-  echo "Running Drupal deploy" | tee $LOG_FILE
-  bin/drush updatedb --no-cache-clear --yes | tee $LOG_FILE
-  bin/drush cache:rebuild | tee $LOG_FILE
+  echo "Running Drupal deploy"
+  bin/drush updatedb --no-cache-clear --yes
+  bin/drush cache:rebuild
   if [ -f config/sync/core.extension.yml ]; then
-    bin/drush config:import --yes | tee $LOG_FILE
+    bin/drush config:import --yes
   fi
-  bin/drush cache:rebuild | tee $LOG_FILE
-  bin/drush deploy:hook --yes | tee $LOG_FILE
-  bin/drush state:set azure_build_id $AZURE_BUILD_ID --yes | tee $LOG_FILE
+  bin/drush cache:rebuild
+  bin/drush deploy:hook --yes
+  bin/drush state:set azure_build_id $AZURE_BUILD_ID --yes
 
-  echo "Cleaning up old DB dumps" | tee $LOG_FILE
+  echo "Cleaning up old DB dumps"
   cd /var/www/share/db_dumps/deploy
-  rm `ls -r | awk "NR>${KEEP_DB_DUMPS}"` | tee $LOG_FILE
+  rm `ls -r | awk "NR>${KEEP_DB_DUMPS}"`
 fi
 
 # Start cron, SSH and Apache.
