@@ -14,7 +14,7 @@ stages:
   - stage: finalise
     displayName: Swap slots
     jobs:
-      - job: Swap slots
+      - job: swap_slots
         displayName: Swap slots
         pool:
           vmImage: 'ubuntu-latest'
