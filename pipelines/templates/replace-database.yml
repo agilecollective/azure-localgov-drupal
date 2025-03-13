@@ -26,14 +26,14 @@ stages:
               script: |
                 CONNECTION_STRING="-u $(mysqlUser) -p"$(mysqlPassword)" -h $(mysqlHost) --ssl-ca=/etc/ssl/certs/DigiCert_Global_Root_CA.pem"
 
-                # Create dump of source.
+                echo "Creating dump of $(sourceDatabase)"
                 mysqldump $CONNECTION_STRING $(sourceDatabase) > "$(sourceDatabase)_dump.sql"
 
-                # Delete all tables in destination.
+                echo "Deleting all tables in $(destinationDatabase)"
                 echo "SET FOREIGN_KEY_CHECKS = 0;" > drop_tables.sql
                 mysqldump $CONNECTION_STRING --add-drop-table --no-data $(sourceDatabase) | grep 'DROP TABLE' >> drop_tables.sql
                 echo "SET FOREIGN_KEY_CHECKS = 1;" >> drop_tables.sql
                 mysql $CONNECTION_STRING $(destinationDatabase) < drop_tables.sql
 
-                # Import source into destination.
+                echo "Importing $(sourceDatabase) into $(destinationDatabase)"
                 mysql $CONNECTION_STRING $(destinationDatabase) < "$(sourceDatabase)_dump.sql"
