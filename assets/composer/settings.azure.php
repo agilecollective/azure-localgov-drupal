@@ -33,8 +33,14 @@ $settings['hash_salt'] = file_get_contents('/var/www/share/private/salt.txt');
  * Reverse proxy configuration.
  */
 $settings['reverse_proxy'] = TRUE;
-$proxy_ip = getenv('REMOTE_ADDR', true) ?? getenv('REMOTE_ADDR');
-$settings['reverse_proxy_addresses'] = [$proxy_ip];
+$settings['reverse_proxy_addresses'] = [
+  getenv('REMOTE_ADDR'),
+];
+$settings['reverse_proxy_trusted_headers'] =
+  \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_FOR |
+  \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_HOST |
+  \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_PORT |
+  \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_PROTO;
 
 /**
  * Stage file proxy config.
