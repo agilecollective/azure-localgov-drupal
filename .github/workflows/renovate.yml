@@ -25,7 +25,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4.2.2
       - name: Renovate
-        uses: renovatebot/github-action@v41.0.14
+        uses: renovatebot/github-action@c21017a4a2fc9f42953bcc907e375a5a544557ec # v41.0.18
         env:
           RENOVATE_GIT_AUTHOR: 'Agile Collective CI Bot <servers+renovate@agile.coop>'
           RENOVATE_USERNAME: 'agile-ci'
